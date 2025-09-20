@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+  }
+  
+  * {
+    @apply border-gray-200;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+  }
+  
+  .btn-primary {
+    @apply btn bg-avalanche-600 text-white hover:bg-avalanche-700 focus:ring-avalanche-500;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500;
+  }
+  
+  .btn-success {
+    @apply btn bg-success-600 text-white hover:bg-success-700 focus:ring-success-500;
+  }
+  
+  .btn-warning {
+    @apply btn bg-warning-600 text-white hover:bg-warning-700 focus:ring-warning-500;
+  }
+  
+  .btn-error {
+    @apply btn bg-error-600 text-white hover:bg-error-700 focus:ring-error-500;
+  }
+  
+  .btn-outline {
+    @apply btn border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-gray-500;
+  }
+  
+  .btn-ghost {
+    @apply btn text-gray-700 hover:bg-gray-100 focus:ring-gray-500;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6;
+  }
+  
+  .input {
+    @apply block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm placeholder-gray-400 focus:border-avalanche-500 focus:outline-none focus:ring-1 focus:ring-avalanche-500 disabled:bg-gray-50 disabled:text-gray-500;
+  }
+  
+  .textarea {
+    @apply input resize-none;
+  }
+  
+  .select {
+    @apply input pr-10;
+  }
+  
+  .label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+  }
+  
+  .error-text {
+    @apply text-sm text-error-600 mt-1;
+  }
+  
+  .success-text {
+    @apply text-sm text-success-600 mt-1;
+  }
+  
+  .warning-text {
+    @apply text-sm text-warning-600 mt-1;
+  }
+  
+  .gradient-bg {
+    @apply bg-gradient-to-br from-avalanche-50 via-white to-avalanche-50;
+  }
+  
+  .glass {
+    @apply bg-white/80 backdrop-blur-sm border border-white/20;
+  }
+  
+  .avalanche-gradient {
+    @apply bg-gradient-to-r from-avalanche-500 to-avalanche-700;
+  }
+  
+  .success-gradient {
+    @apply bg-gradient-to-r from-success-500 to-success-700;
+  }
+  
+  .warning-gradient {
+    @apply bg-gradient-to-r from-warning-500 to-warning-700;
+  }
+  
+  .error-gradient {
+    @apply bg-gradient-to-r from-error-500 to-error-700;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}
+
+/* Loading spinner */
+.spinner {
+  @apply animate-spin rounded-full border-2 border-gray-300 border-t-avalanche-600;
+}
+
+/* Pulse animation for loading states */
+.pulse-avalanche {
+  @apply animate-pulse bg-avalanche-200;
+}
+
+.pulse-success {
+  @apply animate-pulse bg-success-200;
+}
+
+.pulse-warning {
+  @apply animate-pulse bg-warning-200;
+}
+
+.pulse-error {
+  @apply animate-pulse bg-error-200;
+}
+

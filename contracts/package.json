@@ -1,0 +1,47 @@
+{
+  "name": "avalanche-commitment-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for Avalanche commitment platform",
+  "main": "index.js",
+  "scripts": {
+    "dev": "hardhat node",
+    "build": "hardhat compile",
+    "test": "hardhat test",
+    "coverage": "hardhat coverage",
+    "deploy:fuji": "hardhat run scripts/deploy.js --network fuji",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "verify:fuji": "hardhat verify --network fuji",
+    "verify:mainnet": "hardhat verify --network mainnet"
+  },
+  "keywords": [
+    "solidity",
+    "avalanche",
+    "hardhat",
+    "smart-contracts"
+  ],
+  "author": "Avalanche Commitment Platform Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.2",
+    "@nomicfoundation/hardhat-ethers": "^3.0.5",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.8",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@typechain/ethers-v6": "^0.5.0",
+    "@typechain/hardhat": "^9.1.0",
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.7",
+    "ethers": "^6.8.1",
+    "hardhat": "^2.19.0",
+    "hardhat-gas-reporter": "^1.0.9",
+    "solidity-coverage": "^0.8.5",
+    "typechain": "^8.3.1"
+  },
+  "dependencies": {
+    "@chainlink/contracts": "^0.8.0",
+    "@openzeppelin/contracts": "^5.4.0",
+    "@openzeppelin/contracts-upgradeable": "^5.4.0",
+    "dotenv": "^17.2.2"
+  }
+}
