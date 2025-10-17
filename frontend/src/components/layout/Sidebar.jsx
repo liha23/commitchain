@@ -14,6 +14,7 @@ import {
   TrendingUp
 } from 'lucide-react'
 import { useSidebar } from '../../contexts/SidebarContext'
+import { MOBILE_BREAKPOINT } from '../../contexts/SidebarContext'
 
 export default function Sidebar() {
   const location = useLocation()
@@ -68,20 +69,16 @@ export default function Sidebar() {
 
   const handleLinkClick = () => {
     // Close sidebar on mobile when a link is clicked
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < MOBILE_BREAKPOINT) {
       closeSidebar()
     }
   }
 
-  if (!isSidebarOpen) {
-    return null
-  }
-
   return (
-    <>
-      {/* Overlay for mobile */}
-      <AnimatePresence>
-        {isSidebarOpen && (
+    <AnimatePresence mode="wait">
+      {isSidebarOpen && (
+        <>
+          {/* Overlay for mobile */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -89,17 +86,15 @@ export default function Sidebar() {
             onClick={closeSidebar}
             className="fixed inset-0 bg-black/50 z-30 md:hidden"
           />
-        )}
-      </AnimatePresence>
 
-      {/* Sidebar */}
-      <motion.aside
-        initial={{ x: -256 }}
-        animate={{ x: 0 }}
-        exit={{ x: -256 }}
-        transition={{ duration: 0.3 }}
-        className="fixed left-0 top-16 bottom-0 w-64 bg-gray-900 border-r border-gray-800 overflow-y-auto z-40"
-      >
+          {/* Sidebar */}
+          <motion.aside
+            initial={{ x: -256 }}
+            animate={{ x: 0 }}
+            exit={{ x: -256 }}
+            transition={{ duration: 0.3 }}
+            className="fixed left-0 top-16 bottom-0 w-64 bg-gray-900 border-r border-gray-800 overflow-y-auto z-40"
+          >
         <div className="p-4">
           <nav className="space-y-2">
             {navigation.map((item) => {
@@ -184,5 +179,7 @@ export default function Sidebar() {
       </div>
     </motion.aside>
     </>
+      )}
+    </AnimatePresence>
   )
 }
