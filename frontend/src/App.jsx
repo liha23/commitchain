@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useWeb3 } from './contexts/Web3Context'
+import { useSidebar } from './contexts/SidebarContext'
 import Navbar from './components/layout/Navbar'
 import Sidebar from './components/layout/Sidebar'
 import Footer from './components/layout/Footer'
@@ -21,6 +22,7 @@ import NotFound from './pages/NotFound'
 
 function App() {
   const { isConnected, isLoading } = useWeb3()
+  const { isSidebarOpen } = useSidebar()
 
   if (isLoading) {
     return (
@@ -38,7 +40,7 @@ function App() {
         <div className="flex">
           {isConnected && <Sidebar />}
           
-          <main className={`flex-1 ${isConnected ? 'ml-64' : ''}`}>
+          <main className={`flex-1 transition-all duration-300 ${isConnected && isSidebarOpen ? 'md:ml-64' : ''}`}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

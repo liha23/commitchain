@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard,
   Users,
@@ -13,9 +13,11 @@ import {
   Award,
   TrendingUp
 } from 'lucide-react'
+import { useSidebar } from '../../contexts/SidebarContext'
 
 export default function Sidebar() {
   const location = useLocation()
+  const { isSidebarOpen, closeSidebar } = useSidebar()
 
   const navigation = [
     {
@@ -64,42 +66,70 @@ export default function Sidebar() {
 
   const isActive = (path) => location.pathname === path
 
+  const handleLinkClick = () => {
+    // Close sidebar on mobile when a link is clicked
+    if (window.innerWidth < 768) {
+      closeSidebar()
+    }
+  }
+
+  if (!isSidebarOpen) {
+    return null
+  }
+
   return (
-    <motion.aside
-      initial={{ x: -256 }}
-      animate={{ x: 0 }}
-      transition={{ duration: 0.3 }}
-      className="fixed left-0 top-16 bottom-0 w-64 bg-gray-900 border-r border-gray-800 overflow-y-auto z-40"
-    >
-      <div className="p-4">
-        <nav className="space-y-2">
-          {navigation.map((item) => {
-            const Icon = item.icon
-            return (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`group flex items-center space-x-3 px-3 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  isActive(item.href)
-                    ? 'bg-red-900/30 text-red-400 border border-red-800/50'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800'
-                }`}
-              >
-                <Icon className={`w-5 h-5 flex-shrink-0 ${
-                  isActive(item.href) ? 'text-red-400' : 'text-gray-400 group-hover:text-gray-300'
-                }`} />
-                <div className="flex-1 min-w-0">
-                  <div className="truncate">{item.name}</div>
-                  <div className={`text-xs truncate ${
-                    isActive(item.href) ? 'text-red-300/70' : 'text-gray-500'
-                  }`}>
-                    {item.description}
+    <>
+      {/* Overlay for mobile */}
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeSidebar}
+            className="fixed inset-0 bg-black/50 z-30 md:hidden"
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Sidebar */}
+      <motion.aside
+        initial={{ x: -256 }}
+        animate={{ x: 0 }}
+        exit={{ x: -256 }}
+        transition={{ duration: 0.3 }}
+        className="fixed left-0 top-16 bottom-0 w-64 bg-gray-900 border-r border-gray-800 overflow-y-auto z-40"
+      >
+        <div className="p-4">
+          <nav className="space-y-2">
+            {navigation.map((item) => {
+              const Icon = item.icon
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  onClick={handleLinkClick}
+                  className={`group flex items-center space-x-3 px-3 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    isActive(item.href)
+                      ? 'bg-red-900/30 text-red-400 border border-red-800/50'
+                      : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                  }`}
+                >
+                  <Icon className={`w-5 h-5 flex-shrink-0 ${
+                    isActive(item.href) ? 'text-red-400' : 'text-gray-400 group-hover:text-gray-300'
+                  }`} />
+                  <div className="flex-1 min-w-0">
+                    <div className="truncate">{item.name}</div>
+                    <div className={`text-xs truncate ${
+                      isActive(item.href) ? 'text-red-300/70' : 'text-gray-500'
+                    }`}>
+                      {item.description}
+                    </div>
                   </div>
-                </div>
-              </Link>
-            )
-          })}
-        </nav>
+                </Link>
+              )
+            })}
+          </nav>
 
         {/* Quick Stats */}
         <div className="mt-8 p-4 bg-gradient-to-br from-red-900/20 to-red-800/20 border border-red-800/30 rounded-lg">
@@ -153,6 +183,6 @@ export default function Sidebar() {
         </div>
       </div>
     </motion.aside>
+    </>
   )
 }
-
