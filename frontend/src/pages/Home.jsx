@@ -84,11 +84,11 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-100 mb-6">
+              <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
                 Commit to Your
                 <span className="avalanche-gradient bg-clip-text text-transparent"> Dreams</span>
               </h1>
-              <p className="text-xl text-gray-400 mb-8 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
                 Join the decentralized commitment platform on Avalanche. Set goals, stake AVAX, 
                 and achieve your dreams with community support and automated rewards.
               </p>
@@ -134,8 +134,8 @@ export default function Home() {
                     <div className="flex justify-center mb-2">
                       <Icon className="w-8 h-8 text-red-500" />
                     </div>
-                    <div className="text-2xl font-bold text-gray-100">{stat.value}</div>
-                    <div className="text-sm text-gray-400">{stat.label}</div>
+                    <div className="text-2xl font-bold text-white">{stat.value}</div>
+                    <div className="text-sm text-gray-300">{stat.label}</div>
                   </div>
                 )
               })}
@@ -145,13 +145,13 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gray-800">
+      <section className="py-20 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-100 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               How It Works
             </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               Simple steps to achieve your goals with community support and financial incentives
             </p>
           </div>
@@ -170,10 +170,10 @@ export default function Home() {
                   <div className="w-16 h-16 avalanche-gradient rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <Icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-100 mb-2">
+                  <h3 className="text-xl font-semibold text-white mb-2">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-400">
+                  <p className="text-gray-300">
                     {feature.description}
                   </p>
                 </motion.div>
@@ -184,13 +184,13 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gray-900">
+      <section className="py-20 bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-100 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               What Our Users Say
             </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               Join thousands of users who have achieved their goals with CommitChain
             </p>
           </div>
@@ -211,7 +211,7 @@ export default function Home() {
                     </span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-100">{testimonial.name}</h4>
+                    <h4 className="font-semibold text-white">{testimonial.name}</h4>
                     <p className="text-sm text-gray-400">{testimonial.role}</p>
                   </div>
                 </div>
@@ -220,7 +220,7 @@ export default function Home() {
                     <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
                   ))}
                 </div>
-                <p className="text-gray-300 italic">"{testimonial.content}"</p>
+                <p className="text-gray-200 italic">"{testimonial.content}"</p>
               </motion.div>
             ))}
           </div>

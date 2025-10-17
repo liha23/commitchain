@@ -31,7 +31,7 @@ export default function Navbar() {
   const isActive = (path) => location.pathname === path
 
   return (
-    <nav className="bg-gray-800 shadow-sm border-b border-gray-700 sticky top-0 z-50">
+    <nav className="bg-gray-900 shadow-sm border-b border-gray-800 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -39,7 +39,7 @@ export default function Navbar() {
             <div className="w-8 h-8 avalanche-gradient rounded-lg flex items-center justify-center">
               <Target className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-100">
+            <span className="text-xl font-bold text-gray-50">
               Commit<span className="text-red-500">Chain</span>
             </span>
           </Link>
@@ -55,7 +55,7 @@ export default function Navbar() {
                   className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive(item.href)
                       ? 'text-red-400 bg-red-900/30'
-                      : 'text-gray-300 hover:text-gray-100 hover:bg-gray-700'
+                      : 'text-gray-200 hover:text-gray-50 hover:bg-gray-800'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -83,11 +83,11 @@ export default function Navbar() {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg border border-gray-700 py-1 z-50"
+                    className="absolute right-0 mt-2 w-48 bg-gray-900 rounded-lg shadow-lg border border-gray-800 py-1 z-50"
                   >
                     <Link
                       to="/dashboard"
-                      className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-300 hover:bg-gray-700"
+                      className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-200 hover:bg-gray-800"
                       onClick={() => setIsProfileOpen(false)}
                     >
                       <User className="w-4 h-4" />
@@ -95,7 +95,7 @@ export default function Navbar() {
                     </Link>
                     <Link
                       to="/profile"
-                      className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-300 hover:bg-gray-700"
+                      className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-200 hover:bg-gray-800"
                       onClick={() => setIsProfileOpen(false)}
                     >
                       <User className="w-4 h-4" />
@@ -103,13 +103,13 @@ export default function Navbar() {
                     </Link>
                     <Link
                       to="/settings"
-                      className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-300 hover:bg-gray-700"
+                      className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-200 hover:bg-gray-800"
                       onClick={() => setIsProfileOpen(false)}
                     >
                       <Settings className="w-4 h-4" />
                       <span>Settings</span>
                     </Link>
-                    <hr className="my-1 border-gray-700" />
+                    <hr className="my-1 border-gray-800" />
                     <button
                       onClick={() => {
                         disconnectWallet()
@@ -136,7 +136,7 @@ export default function Navbar() {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-lg text-gray-300 hover:text-gray-100 hover:bg-gray-700"
+              className="md:hidden p-2 rounded-lg text-gray-200 hover:text-gray-50 hover:bg-gray-800"
             >
               {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -149,7 +149,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-gray-700 py-4"
+            className="md:hidden border-t border-gray-800 py-4"
           >
             <div className="space-y-2">
               {navigation.map((item) => {
@@ -161,7 +161,7 @@ export default function Navbar() {
                     className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                       isActive(item.href)
                         ? 'text-red-400 bg-red-900/30'
-                        : 'text-gray-300 hover:text-gray-100 hover:bg-gray-700'
+                        : 'text-gray-200 hover:text-gray-50 hover:bg-gray-800'
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
