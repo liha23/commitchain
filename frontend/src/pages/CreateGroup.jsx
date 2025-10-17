@@ -103,9 +103,9 @@ export default function CreateGroup() {
     return (
       <div className="min-h-screen flex items-center justify-center gradient-bg">
         <div className="text-center">
-          <Target className="w-16 h-16 text-avalanche-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Connect Your Wallet</h2>
-          <p className="text-gray-600 mb-6">Please connect your wallet to create a group</p>
+          <Target className="w-16 h-16 text-red-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-white mb-2">Connect Your Wallet</h2>
+          <p className="text-gray-300 mb-6">Please connect your wallet to create a group</p>
           <button onClick={() => navigate('/')} className="btn btn-primary">
             Go to Home
           </button>

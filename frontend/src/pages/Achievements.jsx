@@ -74,9 +74,9 @@ export default function Achievements() {
     return (
       <div className="min-h-screen flex items-center justify-center gradient-bg">
         <div className="text-center">
-          <Trophy className="w-16 h-16 text-avalanche-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Connect Your Wallet</h2>
-          <p className="text-gray-600 mb-6">Please connect your wallet to view achievements</p>
+          <Trophy className="w-16 h-16 text-red-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-white mb-2">Connect Your Wallet</h2>
+          <p className="text-gray-300 mb-6">Please connect your wallet to view achievements</p>
         </div>
       </div>
     )
@@ -94,46 +94,46 @@ export default function Achievements() {
     <div className="min-h-screen gradient-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Achievements</h1>
-          <p className="text-gray-600">Your collection of earned achievements and badges</p>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Achievements</h1>
+          <p className="text-sm sm:text-base text-gray-300">Your collection of earned achievements and badges</p>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <div className="card text-center">
-            <Trophy className="w-8 h-8 text-avalanche-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">
+            <Trophy className="w-6 h-6 sm:w-8 sm:h-8 text-red-400 mx-auto mb-2" />
+            <div className="text-xl sm:text-2xl font-bold text-white">
               {achievements.filter(a => a.isEarned).length}
             </div>
-            <div className="text-sm text-gray-600">Earned</div>
+            <div className="text-xs sm:text-sm text-gray-300">Earned</div>
           </div>
           <div className="card text-center">
-            <Target className="w-8 h-8 text-gray-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">
+            <Target className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400 mx-auto mb-2" />
+            <div className="text-xl sm:text-2xl font-bold text-white">
               {achievements.filter(a => !a.isEarned).length}
             </div>
-            <div className="text-sm text-gray-600">Available</div>
+            <div className="text-xs sm:text-sm text-gray-300">Available</div>
           </div>
           <div className="card text-center">
-            <Star className="w-8 h-8 text-yellow-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">
+            <Star className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-400 mx-auto mb-2" />
+            <div className="text-xl sm:text-2xl font-bold text-white">
               {achievements.filter(a => a.isEarned && a.rarity === 'legendary').length}
             </div>
-            <div className="text-sm text-gray-600">Legendary</div>
+            <div className="text-xs sm:text-sm text-gray-300">Legendary</div>
           </div>
           <div className="card text-center">
-            <Award className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">
+            <Award className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400 mx-auto mb-2" />
+            <div className="text-xl sm:text-2xl font-bold text-white">
               {achievements.filter(a => a.isEarned && a.rarity === 'epic').length}
             </div>
-            <div className="text-sm text-gray-600">Epic</div>
+            <div className="text-xs sm:text-sm text-gray-300">Epic</div>
           </div>
         </div>
 
         {/* Search and Filters */}
-        <div className="card mb-8">
-          <div className="flex flex-col md:flex-row gap-4">
+        <div className="card mb-6 sm:mb-8">
+          <div className="flex flex-col gap-3 sm:gap-4">
             <div className="flex-1">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -142,19 +142,19 @@ export default function Achievements() {
                   placeholder="Search achievements..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="input pl-10"
+                  className="input pl-10 text-sm sm:text-base"
                 />
               </div>
             </div>
-            <div className="flex gap-2 overflow-x-auto">
+            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
               {['all', 'earned', 'unearned', 'legendary', 'epic', 'rare', 'uncommon', 'common'].map((filterType) => (
                 <button
                   key={filterType}
                   onClick={() => setFilter(filterType)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors capitalize ${
+                  className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors capitalize flex-shrink-0 ${
                     filter === filterType
-                      ? 'bg-avalanche-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-red-600 text-white'
+                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                   }`}
                 >
                   {filterType}
@@ -165,24 +165,24 @@ export default function Achievements() {
         </div>
 
         {/* Achievements Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {filteredAchievements.map((achievement, index) => (
             <motion.div
               key={achievement.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`card hover:shadow-lg transition-all duration-300 ${
+              className={`card hover:shadow-lg hover:shadow-red-900/20 transition-all duration-300 ${
                 achievement.isEarned ? 'opacity-100' : 'opacity-60'
               }`}
             >
               {/* Achievement Image */}
               <div className="relative mb-4">
-                <div className="w-full h-32 bg-gradient-to-br from-avalanche-100 to-avalanche-200 rounded-lg flex items-center justify-center">
+                <div className="w-full h-28 sm:h-32 bg-gradient-to-br from-red-900/30 to-red-800/30 rounded-lg flex items-center justify-center">
                   {achievement.isEarned ? (
-                    <Trophy className="w-16 h-16 text-avalanche-600" />
+                    <Trophy className="w-12 h-12 sm:w-16 sm:h-16 text-red-400" />
                   ) : (
-                    <Target className="w-16 h-16 text-gray-400" />
+                    <Target className="w-12 h-12 sm:w-16 sm:h-16 text-gray-500" />
                   )}
                 </div>
                 
@@ -194,7 +194,7 @@ export default function Achievements() {
 
                 {/* Earned Badge */}
                 {achievement.isEarned && (
-                  <div className="absolute top-2 left-2 px-2 py-1 text-xs bg-success-100 text-success-700 rounded-full">
+                  <div className="absolute top-2 left-2 px-2 py-1 text-xs bg-success-900/30 text-success-400 rounded-full">
                     Earned
                   </div>
                 )}
@@ -203,19 +203,19 @@ export default function Achievements() {
               {/* Achievement Info */}
               <div className="space-y-3">
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">{achievement.name}</h3>
-                  <p className="text-sm text-gray-600">{achievement.description}</p>
+                  <h3 className="font-semibold text-white mb-1 text-sm sm:text-base">{achievement.name}</h3>
+                  <p className="text-xs sm:text-sm text-gray-300">{achievement.description}</p>
                 </div>
 
                 {achievement.isEarned && (
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600">Group:</span>
-                      <span className="font-medium text-gray-900">{achievement.groupName}</span>
+                    <div className="flex items-center justify-between text-xs sm:text-sm">
+                      <span className="text-gray-400">Group:</span>
+                      <span className="font-medium text-white truncate ml-2">{achievement.groupName}</span>
                     </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600">Earned:</span>
-                      <span className="font-medium text-gray-900">{achievement.earnedAt}</span>
+                    <div className="flex items-center justify-between text-xs sm:text-sm">
+                      <span className="text-gray-400">Earned:</span>
+                      <span className="font-medium text-white">{achievement.earnedAt}</span>
                     </div>
                   </div>
                 )}

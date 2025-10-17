@@ -36,35 +36,35 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen gradient-bg">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="card">
-          <div className="flex items-center justify-between mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 gap-3">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">Profile</h1>
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="btn btn-outline"
+              className="btn btn-outline w-full sm:w-auto justify-center"
             >
               {isEditing ? <X className="w-4 h-4 mr-2" /> : <Edit className="w-4 h-4 mr-2" />}
               {isEditing ? 'Cancel' : 'Edit Profile'}
             </button>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
             {/* Profile Info */}
             <div className="lg:col-span-1">
               <div className="text-center">
-                <div className="w-32 h-32 bg-avalanche-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <User className="w-16 h-16 text-avalanche-600" />
+                <div className="w-24 h-24 sm:w-32 sm:h-32 bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <User className="w-12 h-12 sm:w-16 sm:h-16 text-red-400" />
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">{profile.name}</h2>
-                <p className="text-gray-600 mb-4">{formatAddress(account)}</p>
-                <p className="text-gray-600">{profile.bio}</p>
+                <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">{profile.name}</h2>
+                <p className="text-sm sm:text-base text-gray-300 mb-4">{formatAddress(account)}</p>
+                <p className="text-sm sm:text-base text-gray-300">{profile.bio}</p>
               </div>
             </div>
 
             {/* Profile Details */}
             <div className="lg:col-span-2">
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
                   <label className="label">Name</label>
                   {isEditing ? (
@@ -75,7 +75,7 @@ export default function Profile() {
                       className="input"
                     />
                   ) : (
-                    <p className="text-gray-900">{profile.name}</p>
+                    <p className="text-white text-sm sm:text-base">{profile.name}</p>
                   )}
                 </div>
 
@@ -89,7 +89,7 @@ export default function Profile() {
                       className="input"
                     />
                   ) : (
-                    <p className="text-gray-900">{profile.email}</p>
+                    <p className="text-white text-sm sm:text-base">{profile.email}</p>
                   )}
                 </div>
 
@@ -103,17 +103,17 @@ export default function Profile() {
                       rows={3}
                     />
                   ) : (
-                    <p className="text-gray-900">{profile.bio}</p>
+                    <p className="text-white text-sm sm:text-base">{profile.bio}</p>
                   )}
                 </div>
 
                 {isEditing && (
-                  <div className="flex space-x-4">
-                    <button onClick={handleSave} className="btn btn-primary">
+                  <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                    <button onClick={handleSave} className="btn btn-primary w-full sm:w-auto justify-center">
                       <Save className="w-4 h-4 mr-2" />
                       Save Changes
                     </button>
-                    <button onClick={() => setIsEditing(false)} className="btn btn-outline">
+                    <button onClick={() => setIsEditing(false)} className="btn btn-outline w-full sm:w-auto justify-center">
                       Cancel
                     </button>
                   </div>
@@ -124,26 +124,26 @@ export default function Profile() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-6 sm:mt-8">
           <div className="card text-center">
-            <Target className="w-8 h-8 text-avalanche-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">{profile.totalGroups}</div>
-            <div className="text-sm text-gray-600">Groups Joined</div>
+            <Target className="w-6 h-6 sm:w-8 sm:h-8 text-red-400 mx-auto mb-2" />
+            <div className="text-xl sm:text-2xl font-bold text-white">{profile.totalGroups}</div>
+            <div className="text-xs sm:text-sm text-gray-300">Groups Joined</div>
           </div>
           <div className="card text-center">
-            <Trophy className="w-8 h-8 text-success-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">{profile.completedGoals}</div>
-            <div className="text-sm text-gray-600">Goals Completed</div>
+            <Trophy className="w-6 h-6 sm:w-8 sm:h-8 text-success-400 mx-auto mb-2" />
+            <div className="text-xl sm:text-2xl font-bold text-white">{profile.completedGoals}</div>
+            <div className="text-xs sm:text-sm text-gray-300">Goals Completed</div>
           </div>
           <div className="card text-center">
-            <TrendingUp className="w-8 h-8 text-warning-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">{profile.totalRewards} AVAX</div>
-            <div className="text-sm text-gray-600">Total Rewards</div>
+            <TrendingUp className="w-6 h-6 sm:w-8 sm:h-8 text-warning-400 mx-auto mb-2" />
+            <div className="text-xl sm:text-2xl font-bold text-white">{profile.totalRewards} AVAX</div>
+            <div className="text-xs sm:text-sm text-gray-300">Total Rewards</div>
           </div>
           <div className="card text-center">
-            <Award className="w-8 h-8 text-error-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">{profile.achievements}</div>
-            <div className="text-sm text-gray-600">Achievements</div>
+            <Award className="w-6 h-6 sm:w-8 sm:h-8 text-error-400 mx-auto mb-2" />
+            <div className="text-xl sm:text-2xl font-bold text-white">{profile.achievements}</div>
+            <div className="text-xs sm:text-sm text-gray-300">Achievements</div>
           </div>
         </div>
       </div>

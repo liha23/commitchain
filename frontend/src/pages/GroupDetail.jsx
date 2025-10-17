@@ -79,9 +79,9 @@ export default function GroupDetail() {
     return (
       <div className="min-h-screen flex items-center justify-center gradient-bg">
         <div className="text-center">
-          <Users className="w-16 h-16 text-avalanche-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Connect Your Wallet</h2>
-          <p className="text-gray-600 mb-6">Please connect your wallet to view group details</p>
+          <Users className="w-16 h-16 text-red-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-white mb-2">Connect Your Wallet</h2>
+          <p className="text-gray-300 mb-6">Please connect your wallet to view group details</p>
         </div>
       </div>
     )
@@ -99,9 +99,9 @@ export default function GroupDetail() {
     return (
       <div className="min-h-screen flex items-center justify-center gradient-bg">
         <div className="text-center">
-          <AlertCircle className="w-16 h-16 text-error-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Group Not Found</h2>
-          <p className="text-gray-600 mb-6">The group you're looking for doesn't exist or has been removed</p>
+          <AlertCircle className="w-16 h-16 text-error-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-white mb-2">Group Not Found</h2>
+          <p className="text-gray-300 mb-6">The group you're looking for doesn't exist or has been removed</p>
         </div>
       </div>
     )
