@@ -32,17 +32,17 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-black text-white border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center space-x-2 mb-4">
               <div className="w-8 h-8 avalanche-gradient rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">CA</span>
+                <span className="text-white font-bold text-sm">CC</span>
               </div>
               <span className="text-xl font-bold">
-                Commit<span className="text-avalanche-400">Avalanche</span>
+                Commit<span className="text-red-500">Chain</span>
               </span>
             </Link>
             <p className="text-gray-400 text-sm mb-4">
@@ -53,7 +53,7 @@ export default function Footer() {
                 href="https://twitter.com/avalancheavax"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-avalanche-400 transition-colors"
+                className="text-gray-400 hover:text-red-400 transition-colors"
               >
                 <Twitter className="w-5 h-5" />
               </a>
@@ -61,7 +61,7 @@ export default function Footer() {
                 href="https://discord.gg/avalancheavax"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-avalanche-400 transition-colors"
+                className="text-gray-400 hover:text-red-400 transition-colors"
               >
                 <MessageCircle className="w-5 h-5" />
               </a>
@@ -69,7 +69,7 @@ export default function Footer() {
                 href="https://github.com/avalanche-commitment-platform"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-avalanche-400 transition-colors"
+                className="text-gray-400 hover:text-red-400 transition-colors"
               >
                 <Github className="w-5 h-5" />
               </a>
@@ -114,7 +114,7 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-400 text-sm">
-              © {currentYear} CommitAvalanche. All rights reserved.
+              © {currentYear} CommitChain. All rights reserved.
             </div>
             <div className="flex items-center space-x-6 mt-4 md:mt-0">
               <span className="text-gray-400 text-sm">Built on</span>
@@ -122,9 +122,9 @@ export default function Footer() {
                 href="https://avax.network"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-avalanche-400 hover:text-avalanche-300 transition-colors"
+                className="flex items-center space-x-2 text-red-400 hover:text-red-300 transition-colors"
               >
-                <div className="w-5 h-5 bg-avalanche-500 rounded"></div>
+                <div className="w-5 h-5 bg-red-500 rounded"></div>
                 <span className="text-sm font-medium">Avalanche</span>
               </a>
             </div>

@@ -17,10 +17,15 @@ import {
 } from 'lucide-react'
 import { useWeb3 } from '../contexts/Web3Context'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
+import { 
+  MOCK_DASHBOARD_STATS, 
+  MOCK_GROUPS, 
+  MOCK_RECENT_ACTIVITY 
+} from '../services/mockData'
 
 export default function Dashboard() {
   const { isConnected, account } = useWeb3()
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [stats, setStats] = useState({
     activeGroups: 0,
     completedGoals: 0,
@@ -40,48 +45,28 @@ export default function Dashboard() {
     setIsLoading(true)
     try {
       // Simulate API calls - in real app, these would be actual contract calls
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      await new Promise(resolve => setTimeout(resolve, 800))
       
       setStats({
-        activeGroups: 3,
-        completedGoals: 12,
-        totalRewards: 2.5,
-        achievements: 8
+        activeGroups: MOCK_DASHBOARD_STATS.activeGroups,
+        completedGoals: MOCK_DASHBOARD_STATS.completedGoals,
+        totalRewards: MOCK_DASHBOARD_STATS.totalRewards,
+        achievements: MOCK_DASHBOARD_STATS.achievements
       })
 
-      setRecentGroups([
-        {
-          id: 1,
-          name: 'LeetCode Masters',
-          description: 'Complete 100 LeetCode problems in 30 days',
-          stakeAmount: 1.0,
-          deadline: '2024-02-15',
-          progress: 75,
-          members: 12,
-          status: 'active'
-        },
-        {
-          id: 2,
-          name: 'Fitness Warriors',
-          description: '30-day fitness challenge',
-          stakeAmount: 0.5,
-          deadline: '2024-02-20',
-          progress: 60,
-          members: 8,
-          status: 'active'
-        },
-        {
-          id: 3,
-          name: 'Study Squad',
-          description: 'Complete online course',
-          stakeAmount: 2.0,
-          deadline: '2024-01-30',
-          progress: 100,
-          members: 15,
-          status: 'completed'
-        }
-      ])
+      // Get first 3 groups as "recent"
+      setRecentGroups(MOCK_GROUPS.slice(0, 3).map(g => ({
+        id: g.id,
+        name: g.name,
+        description: g.description,
+        stakeAmount: g.stakeAmount,
+        deadline: g.deadline,
+        progress: g.progress,
+        members: g.memberCount,
+        status: g.status
+      })))
 
+      // Get upcoming deadlines
       setUpcomingDeadlines([
         {
           id: 1,
@@ -109,9 +94,9 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen flex items-center justify-center gradient-bg">
         <div className="text-center">
-          <Target className="w-16 h-16 text-avalanche-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Connect Your Wallet</h2>
-          <p className="text-gray-600 mb-6">Please connect your wallet to view your dashboard</p>
+          <Target className="w-16 h-16 text-red-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-gray-100 mb-2">Connect Your Wallet</h2>
+          <p className="text-gray-400 mb-6">Please connect your wallet to view your dashboard</p>
           <Link to="/" className="btn btn-primary">
             Go to Home
           </Link>
@@ -164,8 +149,8 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
-          <p className="text-gray-600">Welcome back! Here's your commitment overview.</p>
+          <h1 className="text-3xl font-bold text-gray-100 mb-2">Dashboard</h1>
+          <p className="text-gray-400">Welcome back! Here's your commitment overview.</p>
         </div>
 
         {/* Stats Grid */}
@@ -182,12 +167,12 @@ export default function Dashboard() {
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">{stat.title}</p>
-                    <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                    <p className="text-sm font-medium text-gray-400">{stat.title}</p>
+                    <p className="text-2xl font-bold text-gray-100">{stat.value}</p>
                     <p className="text-xs text-gray-500">{stat.change}</p>
                   </div>
-                  <div className={`w-12 h-12 bg-${stat.color}-100 rounded-lg flex items-center justify-center`}>
-                    <Icon className={`w-6 h-6 text-${stat.color}-600`} />
+                  <div className={`w-12 h-12 bg-${stat.color}-900/30 rounded-lg flex items-center justify-center`}>
+                    <Icon className={`w-6 h-6 text-${stat.color}-400`} />
                   </div>
                 </div>
               </motion.div>
@@ -200,7 +185,7 @@ export default function Dashboard() {
           <div className="lg:col-span-2">
             <div className="card">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold text-gray-900">Your Groups</h2>
+                <h2 className="text-xl font-semibold text-gray-100">Your Groups</h2>
                 <Link to="/groups/create" className="btn btn-primary btn-sm">
                   <Plus className="w-4 h-4 mr-2" />
                   Create Group
@@ -214,44 +199,47 @@ export default function Dashboard() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                    className="border border-gray-700 rounded-lg p-4 hover:shadow-md hover:shadow-red-900/20 transition-all bg-gray-900/30"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center space-x-2 mb-2">
-                          <h3 className="font-semibold text-gray-900">{group.name}</h3>
+                          <h3 className="font-semibold text-gray-100">{group.name}</h3>
                           <span className={`px-2 py-1 text-xs rounded-full ${
                             group.status === 'active' 
-                              ? 'bg-success-100 text-success-700' 
-                              : 'bg-gray-100 text-gray-700'
+                              ? 'bg-success-900/30 text-success-400' 
+                              : 'bg-gray-700 text-gray-400'
                           }`}>
                             {group.status}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-600 mb-3">{group.description}</p>
+                        <p className="text-sm text-gray-400 mb-3">{group.description}</p>
                         
-                        <div className="flex items-center space-x-4 text-sm text-gray-500">
-                          <div className="flex items-center space-x-1">
-                            <Users className="w-4 h-4" />
-                            <span>{group.members} members</span>
+                        <div className="grid grid-cols-3 gap-3 text-sm">
+                          <div className="flex flex-col items-center p-2 bg-gray-800/50 rounded">
+                            <Users className="w-4 h-4 text-red-400 mb-1" />
+                            <span className="text-gray-300 font-semibold">{group.members}</span>
+                            <span className="text-gray-500 text-xs">Members</span>
                           </div>
-                          <div className="flex items-center space-x-1">
-                            <Trophy className="w-4 h-4" />
-                            <span>{group.stakeAmount} AVAX</span>
+                          <div className="flex flex-col items-center p-2 bg-gray-800/50 rounded">
+                            <Trophy className="w-4 h-4 text-red-400 mb-1" />
+                            <span className="text-gray-300 font-semibold">{group.stakeAmount} AVAX</span>
+                            <span className="text-gray-500 text-xs">Stake</span>
                           </div>
-                          <div className="flex items-center space-x-1">
-                            <Calendar className="w-4 h-4" />
-                            <span>{group.deadline}</span>
+                          <div className="flex flex-col items-center p-2 bg-gray-800/50 rounded">
+                            <Calendar className="w-4 h-4 text-red-400 mb-1" />
+                            <span className="text-gray-300 font-semibold">{group.deadline.split('-')[1]}/{group.deadline.split('-')[2]}</span>
+                            <span className="text-gray-500 text-xs">Deadline</span>
                           </div>
                         </div>
                       </div>
                       
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-2 ml-4">
                         <div className="text-right">
-                          <div className="text-sm font-medium text-gray-900">{group.progress}%</div>
-                          <div className="w-20 bg-gray-200 rounded-full h-2">
+                          <div className="text-sm font-medium text-gray-100">{group.progress}%</div>
+                          <div className="w-20 bg-gray-700 rounded-full h-2">
                             <div 
-                              className="bg-avalanche-600 h-2 rounded-full transition-all duration-300"
+                              className="bg-red-600 h-2 rounded-full transition-all duration-300"
                               style={{ width: `${group.progress}%` }}
                             />
                           </div>
@@ -280,7 +268,7 @@ export default function Dashboard() {
           <div className="space-y-6">
             {/* Upcoming Deadlines */}
             <div className="card">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Upcoming Deadlines</h2>
+              <h2 className="text-xl font-semibold text-gray-100 mb-4">Upcoming Deadlines</h2>
               <div className="space-y-3">
                 {upcomingDeadlines.map((deadline, index) => (
                   <motion.div
@@ -290,19 +278,19 @@ export default function Dashboard() {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     className={`p-3 rounded-lg border ${
                       deadline.status === 'urgent' 
-                        ? 'border-error-200 bg-error-50' 
-                        : 'border-warning-200 bg-warning-50'
+                        ? 'border-error-800 bg-error-900/20' 
+                        : 'border-warning-800 bg-warning-900/20'
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-medium text-gray-900">{deadline.groupName}</h4>
-                        <p className="text-sm text-gray-600">{deadline.deadline}</p>
+                        <h4 className="font-medium text-gray-100">{deadline.groupName}</h4>
+                        <p className="text-sm text-gray-400">{deadline.deadline}</p>
                       </div>
                       <div className={`px-2 py-1 text-xs rounded-full ${
                         deadline.status === 'urgent' 
-                          ? 'bg-error-100 text-error-700' 
-                          : 'bg-warning-100 text-warning-700'
+                          ? 'bg-error-900/30 text-error-400' 
+                          : 'bg-warning-900/30 text-warning-400'
                       }`}>
                         {deadline.daysLeft} days left
                       </div>
@@ -314,7 +302,7 @@ export default function Dashboard() {
 
             {/* Quick Actions */}
             <div className="card">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
+              <h2 className="text-xl font-semibold text-gray-100 mb-4">Quick Actions</h2>
               <div className="space-y-3">
                 <Link to="/groups/create" className="btn btn-primary w-full justify-start">
                   <Plus className="w-4 h-4 mr-2" />
@@ -337,26 +325,26 @@ export default function Dashboard() {
 
             {/* Recent Activity */}
             <div className="card">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Recent Activity</h2>
+              <h2 className="text-xl font-semibold text-gray-100 mb-4">Recent Activity</h2>
               <div className="space-y-3">
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-success-500 rounded-full mt-2"></div>
                   <div className="flex-1">
-                    <p className="text-sm text-gray-900">Completed LeetCode problem #87</p>
+                    <p className="text-sm text-gray-300">Completed LeetCode problem #87</p>
                     <p className="text-xs text-gray-500">2 hours ago</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-avalanche-500 rounded-full mt-2"></div>
+                  <div className="w-2 h-2 bg-red-500 rounded-full mt-2"></div>
                   <div className="flex-1">
-                    <p className="text-sm text-gray-900">Joined "Fitness Warriors" group</p>
+                    <p className="text-sm text-gray-300">Joined "Fitness Warriors" group</p>
                     <p className="text-xs text-gray-500">1 day ago</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-warning-500 rounded-full mt-2"></div>
                   <div className="flex-1">
-                    <p className="text-sm text-gray-900">Milestone reached: 50% progress</p>
+                    <p className="text-sm text-gray-300">Milestone reached: 50% progress</p>
                     <p className="text-xs text-gray-500">3 days ago</p>
                   </div>
                 </div>

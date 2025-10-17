@@ -4,6 +4,31 @@ import toast from 'react-hot-toast'
 
 const Web3Context = createContext()
 
+// Mock user data for demo purposes
+const MOCK_USERS = [
+  {
+    address: '0x1234567890123456789012345678901234567890',
+    name: 'Alice Developer',
+    avatar: 'AD',
+    balance: 10.5,
+    reputation: 850,
+  },
+  {
+    address: '0x0987654321098765432109876543210987654321',
+    name: 'Bob Fitness',
+    avatar: 'BF',
+    balance: 5.2,
+    reputation: 620,
+  },
+  {
+    address: '0xabcdefabcdefabcdefabcdefabcdefabcdefabcd',
+    name: 'Charlie Student',
+    avatar: 'CS',
+    balance: 15.8,
+    reputation: 1200,
+  },
+]
+
 // Avalanche network configurations
 const AVALANCHE_NETWORKS = {
   fuji: {
@@ -56,90 +81,44 @@ export function Web3Provider({ children }) {
   const [signer, setSigner] = useState(null)
   const [network, setNetwork] = useState(null)
   const [isConnected, setIsConnected] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [contracts, setContracts] = useState({})
 
-  // Check if wallet is connected on mount
+  // Check if user was previously connected (from localStorage)
   useEffect(() => {
-    checkConnection()
-  }, [])
-
-  // Listen for account changes
-  useEffect(() => {
-    if (window.ethereum) {
-      window.ethereum.on('accountsChanged', handleAccountsChanged)
-      window.ethereum.on('chainChanged', handleChainChanged)
-      window.ethereum.on('disconnect', handleDisconnect)
-
-      return () => {
-        window.ethereum.removeListener('accountsChanged', handleAccountsChanged)
-        window.ethereum.removeListener('chainChanged', handleChainChanged)
-        window.ethereum.removeListener('disconnect', handleDisconnect)
-      }
+    const savedAccount = localStorage.getItem('commitchain_connected')
+    if (savedAccount && savedAccount !== 'null') {
+      // Simulate reconnection
+      setAccount(savedAccount)
+      setIsConnected(true)
     }
   }, [])
-
-  const checkConnection = async () => {
-    try {
-      if (!window.ethereum) {
-        setIsLoading(false)
-        return
-      }
-
-      const accounts = await window.ethereum.request({ method: 'eth_accounts' })
-      if (accounts.length > 0) {
-        await connectWallet()
-      }
-    } catch (error) {
-      console.error('Error checking connection:', error)
-    } finally {
-      setIsLoading(false)
-    }
-  }
 
   const connectWallet = async () => {
     try {
-      if (!window.ethereum) {
-        toast.error('Please install MetaMask or Core wallet')
-        return false
-      }
-
       setIsLoading(true)
-
-      // Request account access
-      const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts',
-      })
-
-      if (accounts.length === 0) {
-        throw new Error('No accounts found')
-      }
-
-      // Create provider and signer
-      const provider = new ethers.BrowserProvider(window.ethereum)
-      const signer = await provider.getSigner()
-      const network = await provider.getNetwork()
-
-      // Check if we're on the correct network
-      const targetNetwork = import.meta.env.VITE_CHAIN_ID === '43114' ? 'mainnet' : 'fuji'
-      if (network.chainId.toString() !== AVALANCHE_NETWORKS[targetNetwork].chainId) {
-        await switchNetwork(targetNetwork)
-      }
-
-      setAccount(accounts[0])
-      setProvider(provider)
-      setSigner(signer)
-      setNetwork(network)
+      
+      // Simulate network delay
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      
+      // Select a random mock user
+      const randomUser = MOCK_USERS[Math.floor(Math.random() * MOCK_USERS.length)]
+      
+      // Save connection state
+      localStorage.setItem('commitchain_connected', randomUser.address)
+      localStorage.setItem('commitchain_user', JSON.stringify(randomUser))
+      
+      setAccount(randomUser.address)
       setIsConnected(true)
-
-      // Load contracts
-      await loadContracts(provider, signer, targetNetwork)
-
-      toast.success('Wallet connected successfully!')
+      
+      // Mock network
+      setNetwork({ chainId: 43113, name: 'Avalanche Fuji Testnet' })
+      
+      toast.success(`Connected as ${randomUser.name}! (Demo Account)`)
       return true
     } catch (error) {
       console.error('Error connecting wallet:', error)
-      toast.error(error.message || 'Failed to connect wallet')
+      toast.error('Failed to connect wallet')
       return false
     } finally {
       setIsLoading(false)
@@ -147,6 +126,8 @@ export function Web3Provider({ children }) {
   }
 
   const disconnectWallet = () => {
+    localStorage.removeItem('commitchain_connected')
+    localStorage.removeItem('commitchain_user')
     setAccount(null)
     setProvider(null)
     setSigner(null)
@@ -156,86 +137,16 @@ export function Web3Provider({ children }) {
     toast.success('Wallet disconnected')
   }
 
-  const switchNetwork = async (targetNetwork) => {
-    try {
-      const networkConfig = AVALANCHE_NETWORKS[targetNetwork]
-      
-      await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: networkConfig.chainId }],
-      })
-    } catch (error) {
-      // If the network doesn't exist, add it
-      if (error.code === 4902) {
-        try {
-          const networkConfig = AVALANCHE_NETWORKS[targetNetwork]
-          
-          await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [networkConfig],
-          })
-        } catch (addError) {
-          console.error('Error adding network:', addError)
-          throw new Error('Failed to add Avalanche network')
-        }
-      } else {
-        throw error
-      }
-    }
-  }
-
-  const loadContracts = async (provider, signer, network) => {
-    try {
-      const contractAddresses = CONTRACT_ADDRESSES[network]
-      
-      // Import contract ABIs (these would be generated from the contracts)
-      const contractABIs = await import('../contracts/abis')
-      
-      const contracts = {}
-      
-      // Load each contract
-      for (const [name, address] of Object.entries(contractAddresses)) {
-        if (address && contractABIs[name]) {
-          contracts[name] = new ethers.Contract(address, contractABIs[name], signer)
-        }
-      }
-      
-      setContracts(contracts)
-    } catch (error) {
-      console.error('Error loading contracts:', error)
-      toast.error('Failed to load smart contracts')
-    }
-  }
-
-  const handleAccountsChanged = (accounts) => {
-    if (accounts.length === 0) {
-      disconnectWallet()
-    } else {
-      setAccount(accounts[0])
-    }
-  }
-
-  const handleChainChanged = (chainId) => {
-    window.location.reload()
-  }
-
-  const handleDisconnect = () => {
-    disconnectWallet()
-  }
-
   const getContract = (contractName) => {
     return contracts[contractName] || null
   }
 
   const getNetworkName = () => {
-    if (!network) return 'Unknown'
-    return network.chainId.toString() === '0xa86a' ? 'Avalanche Mainnet' : 'Avalanche Fuji'
+    return 'Avalanche Fuji Testnet'
   }
 
   const getExplorerUrl = (type, value) => {
-    const baseUrl = network?.chainId.toString() === '0xa86a' 
-      ? 'https://snowtrace.io' 
-      : 'https://testnet.snowtrace.io'
+    const baseUrl = 'https://testnet.snowtrace.io'
     
     switch (type) {
       case 'address':
@@ -256,11 +167,19 @@ export function Web3Provider({ children }) {
 
   const formatBalance = (balance, decimals = 18) => {
     if (!balance) return '0'
-    return ethers.formatUnits(balance, decimals)
+    try {
+      return ethers.formatUnits(balance, decimals)
+    } catch {
+      return balance.toString()
+    }
   }
 
   const parseBalance = (amount, decimals = 18) => {
-    return ethers.parseUnits(amount.toString(), decimals)
+    try {
+      return ethers.parseUnits(amount.toString(), decimals)
+    } catch {
+      return amount
+    }
   }
 
   const value = {

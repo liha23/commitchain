@@ -16,10 +16,11 @@ import {
 } from 'lucide-react'
 import { useWeb3 } from '../contexts/Web3Context'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
+import { MOCK_GROUPS } from '../services/mockData'
 
 export default function Groups() {
   const { isConnected } = useWeb3()
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [filterType, setFilterType] = useState('all')
   const [groups, setGroups] = useState([])
@@ -31,79 +32,9 @@ export default function Groups() {
   const loadGroups = async () => {
     setIsLoading(true)
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      setGroups([
-        {
-          id: 1,
-          name: 'LeetCode Masters',
-          description: 'Complete 100 LeetCode problems in 30 days. Perfect for software engineers preparing for interviews.',
-          creator: '0x1234...5678',
-          stakeAmount: 1.0,
-          totalStaked: 12.0,
-          deadline: '2024-02-15',
-          isPrivate: false,
-          memberCount: 12,
-          maxMembers: 20,
-          category: 'coding',
-          tags: ['programming', 'algorithms', 'interviews'],
-          progress: 75,
-          status: 'active',
-          createdAt: '2024-01-15'
-        },
-        {
-          id: 2,
-          name: 'Fitness Warriors',
-          description: '30-day fitness challenge with daily workouts and nutrition tracking.',
-          creator: '0x2345...6789',
-          stakeAmount: 0.5,
-          totalStaked: 4.0,
-          deadline: '2024-02-20',
-          isPrivate: false,
-          memberCount: 8,
-          maxMembers: 15,
-          category: 'fitness',
-          tags: ['workout', 'health', 'nutrition'],
-          progress: 60,
-          status: 'active',
-          createdAt: '2024-01-20'
-        },
-        {
-          id: 3,
-          name: 'Study Squad',
-          description: 'Complete the React Developer course on Udemy within 6 weeks.',
-          creator: '0x3456...7890',
-          stakeAmount: 2.0,
-          totalStaked: 30.0,
-          deadline: '2024-01-30',
-          isPrivate: false,
-          memberCount: 15,
-          maxMembers: 20,
-          category: 'education',
-          tags: ['react', 'javascript', 'web-development'],
-          progress: 100,
-          status: 'completed',
-          createdAt: '2024-01-01'
-        },
-        {
-          id: 4,
-          name: 'Crypto Traders',
-          description: 'Learn and practice cryptocurrency trading strategies for 2 months.',
-          creator: '0x4567...8901',
-          stakeAmount: 5.0,
-          totalStaked: 50.0,
-          deadline: '2024-03-15',
-          isPrivate: true,
-          memberCount: 10,
-          maxMembers: 12,
-          category: 'finance',
-          tags: ['crypto', 'trading', 'defi'],
-          progress: 30,
-          status: 'active',
-          createdAt: '2024-01-10'
-        }
-      ])
+      // Simulate API call with mock data
+      await new Promise(resolve => setTimeout(resolve, 500))
+      setGroups(MOCK_GROUPS)
     } catch (error) {
       console.error('Error loading groups:', error)
     } finally {
@@ -137,9 +68,9 @@ export default function Groups() {
     return (
       <div className="min-h-screen flex items-center justify-center gradient-bg">
         <div className="text-center">
-          <Users className="w-16 h-16 text-avalanche-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Connect Your Wallet</h2>
-          <p className="text-gray-600 mb-6">Please connect your wallet to view groups</p>
+          <Users className="w-16 h-16 text-red-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-gray-100 mb-2">Connect Your Wallet</h2>
+          <p className="text-gray-400 mb-6">Please connect your wallet to view groups</p>
           <Link to="/" className="btn btn-primary">
             Go to Home
           </Link>
@@ -162,8 +93,8 @@ export default function Groups() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Groups</h1>
-            <p className="text-gray-600">Join commitment groups and achieve your goals together</p>
+            <h1 className="text-3xl font-bold text-gray-100 mb-2">Commitment Groups</h1>
+            <p className="text-gray-400">Join commitment groups and achieve your goals together</p>
           </div>
           <Link to="/groups/create" className="btn btn-primary mt-4 md:mt-0">
             <Plus className="w-4 h-4 mr-2" />
@@ -196,8 +127,8 @@ export default function Groups() {
                   onClick={() => setFilterType(category.value)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
                     filterType === category.value
-                      ? 'bg-avalanche-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-red-600 text-white'
+                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                   }`}
                 >
                   {category.label} ({category.count})
@@ -215,63 +146,70 @@ export default function Groups() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="card hover:shadow-lg transition-shadow"
+              className="card hover:shadow-lg hover:shadow-red-900/20 transition-all border-gray-700"
             >
               {/* Group Header */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-2">
-                    <h3 className="font-semibold text-gray-900">{group.name}</h3>
+                    <h3 className="font-semibold text-gray-100">{group.name}</h3>
                     {group.isPrivate && (
-                      <span className="px-2 py-1 text-xs bg-warning-100 text-warning-700 rounded-full">
+                      <span className="px-2 py-1 text-xs bg-warning-900/30 text-warning-400 rounded-full">
                         Private
                       </span>
                     )}
                     <span className={`px-2 py-1 text-xs rounded-full ${
                       group.status === 'active' 
-                        ? 'bg-success-100 text-success-700' 
-                        : 'bg-gray-100 text-gray-700'
+                        ? 'bg-success-900/30 text-success-400' 
+                        : 'bg-gray-700 text-gray-400'
                     }`}>
                       {group.status}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600 line-clamp-2">{group.description}</p>
+                  <p className="text-sm text-gray-400 line-clamp-2">{group.description}</p>
                 </div>
               </div>
 
-              {/* Group Stats */}
+              {/* Prominent Stats - Stake & Participants */}
+              <div className="grid grid-cols-2 gap-3 mb-4 p-3 bg-gray-900/50 rounded-lg border border-gray-700">
+                <div className="text-center">
+                  <div className="flex items-center justify-center space-x-1 mb-1">
+                    <Trophy className="w-4 h-4 text-red-400" />
+                  </div>
+                  <p className="text-2xl font-bold text-red-400">{group.stakeAmount} AVAX</p>
+                  <p className="text-xs text-gray-500">Stake Required</p>
+                </div>
+                <div className="text-center">
+                  <div className="flex items-center justify-center space-x-1 mb-1">
+                    <Users className="w-4 h-4 text-red-400" />
+                  </div>
+                  <p className="text-2xl font-bold text-red-400">{group.memberCount}/{group.maxMembers}</p>
+                  <p className="text-xs text-gray-500">Participants</p>
+                </div>
+              </div>
+
+              {/* Additional Stats */}
               <div className="space-y-3 mb-4">
                 <div className="flex items-center justify-between text-sm">
-                  <div className="flex items-center space-x-1 text-gray-600">
-                    <Users className="w-4 h-4" />
-                    <span>{group.memberCount}/{group.maxMembers} members</span>
+                  <div className="flex items-center space-x-1 text-gray-400">
+                    <TrendingUp className="w-4 h-4" />
+                    <span>Total Pool: {group.totalStaked} AVAX</span>
                   </div>
-                  <div className="flex items-center space-x-1 text-gray-600">
-                    <Trophy className="w-4 h-4" />
-                    <span>{group.stakeAmount} AVAX</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between text-sm">
-                  <div className="flex items-center space-x-1 text-gray-600">
+                  <div className="flex items-center space-x-1 text-gray-400">
                     <Calendar className="w-4 h-4" />
                     <span>{group.deadline}</span>
-                  </div>
-                  <div className="flex items-center space-x-1 text-gray-600">
-                    <TrendingUp className="w-4 h-4" />
-                    <span>{group.totalStaked} AVAX staked</span>
                   </div>
                 </div>
 
                 {/* Progress Bar */}
                 <div>
                   <div className="flex items-center justify-between text-sm mb-1">
-                    <span className="text-gray-600">Progress</span>
-                    <span className="font-medium text-gray-900">{group.progress}%</span>
+                    <span className="text-gray-400">Progress</span>
+                    <span className="font-medium text-gray-100">{group.progress}%</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-gray-700 rounded-full h-2">
                     <div 
-                      className="bg-avalanche-600 h-2 rounded-full transition-all duration-300"
+                      className="bg-red-600 h-2 rounded-full transition-all duration-300"
                       style={{ width: `${group.progress}%` }}
                     />
                   </div>
@@ -283,13 +221,13 @@ export default function Groups() {
                 {group.tags.slice(0, 3).map((tag) => (
                   <span
                     key={tag}
-                    className="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full"
+                    className="px-2 py-1 text-xs bg-gray-700 text-gray-300 rounded-full"
                   >
                     {tag}
                   </span>
                 ))}
                 {group.tags.length > 3 && (
-                  <span className="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full">
+                  <span className="px-2 py-1 text-xs bg-gray-700 text-gray-300 rounded-full">
                     +{group.tags.length - 3}
                   </span>
                 )}
@@ -317,9 +255,9 @@ export default function Groups() {
         {/* Empty State */}
         {filteredGroups.length === 0 && (
           <div className="text-center py-12">
-            <Target className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No groups found</h3>
-            <p className="text-gray-600 mb-6">
+            <Target className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-100 mb-2">No groups found</h3>
+            <p className="text-gray-400 mb-6">
               {searchTerm || filterType !== 'all' 
                 ? 'Try adjusting your search or filters'
                 : 'Be the first to create a group!'

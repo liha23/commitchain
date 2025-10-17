@@ -13,10 +13,11 @@ import {
 } from 'lucide-react'
 import { useWeb3 } from '../contexts/Web3Context'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
+import { MOCK_LEADERBOARD } from '../services/mockData'
 
 export default function Leaderboard() {
   const { isConnected } = useWeb3()
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [leaderboard, setLeaderboard] = useState([])
   const [timeframe, setTimeframe] = useState('all')
   const [category, setCategory] = useState('all')
@@ -28,75 +29,8 @@ export default function Leaderboard() {
   const loadLeaderboard = async () => {
     setIsLoading(true)
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      setLeaderboard([
-        {
-          rank: 1,
-          address: '0x1234...5678',
-          name: 'Alice Johnson',
-          avatar: 'AJ',
-          totalRewards: 15.5,
-          completedGoals: 25,
-          groupsJoined: 8,
-          achievements: 12,
-          winRate: 95,
-          streak: 12,
-          category: 'coding'
-        },
-        {
-          rank: 2,
-          address: '0x2345...6789',
-          name: 'Bob Smith',
-          avatar: 'BS',
-          totalRewards: 12.3,
-          completedGoals: 20,
-          groupsJoined: 6,
-          achievements: 10,
-          winRate: 90,
-          streak: 8,
-          category: 'fitness'
-        },
-        {
-          rank: 3,
-          address: '0x3456...7890',
-          name: 'Charlie Brown',
-          avatar: 'CB',
-          totalRewards: 10.8,
-          completedGoals: 18,
-          groupsJoined: 5,
-          achievements: 9,
-          winRate: 85,
-          streak: 6,
-          category: 'education'
-        },
-        {
-          rank: 4,
-          address: '0x4567...8901',
-          name: 'Diana Prince',
-          avatar: 'DP',
-          totalRewards: 9.2,
-          completedGoals: 15,
-          groupsJoined: 4,
-          achievements: 8,
-          winRate: 80,
-          streak: 5,
-          category: 'coding'
-        },
-        {
-          rank: 5,
-          address: '0x5678...9012',
-          name: 'Eve Wilson',
-          avatar: 'EW',
-          totalRewards: 8.7,
-          completedGoals: 14,
-          groupsJoined: 4,
-          achievements: 7,
-          winRate: 78,
-          streak: 4,
-          category: 'fitness'
-        }
-      ])
+      await new Promise(resolve => setTimeout(resolve, 600))
+      setLeaderboard(MOCK_LEADERBOARD)
     } catch (error) {
       console.error('Error loading leaderboard:', error)
     } finally {

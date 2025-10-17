@@ -1,6 +1,6 @@
-# Avalanche Commitment Platform
+# CommitChain
 
-A decentralized commitment platform built on the Avalanche network, inspired by commit.wtf. Users can form groups, stake AVAX, and commit to verifiable goals with automated reward distribution.
+A decentralized commitment platform built on the Avalanche network. Users can form groups, stake AVAX, and commit to verifiable goals with automated reward distribution.
 
 ## Features
 

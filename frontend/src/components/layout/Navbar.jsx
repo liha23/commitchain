@@ -31,7 +31,7 @@ export default function Navbar() {
   const isActive = (path) => location.pathname === path
 
   return (
-    <nav className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+    <nav className="bg-gray-800 shadow-sm border-b border-gray-700 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -39,8 +39,8 @@ export default function Navbar() {
             <div className="w-8 h-8 avalanche-gradient rounded-lg flex items-center justify-center">
               <Target className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900">
-              Commit<span className="text-avalanche-600">Avalanche</span>
+            <span className="text-xl font-bold text-gray-100">
+              Commit<span className="text-red-500">Chain</span>
             </span>
           </Link>
 
@@ -54,8 +54,8 @@ export default function Navbar() {
                   to={item.href}
                   className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive(item.href)
-                      ? 'text-avalanche-600 bg-avalanche-50'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                      ? 'text-red-400 bg-red-900/30'
+                      : 'text-gray-300 hover:text-gray-100 hover:bg-gray-700'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -71,7 +71,7 @@ export default function Navbar() {
               <div className="relative">
                 <button
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-avalanche-50 text-avalanche-700 hover:bg-avalanche-100 transition-colors"
+                  className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-red-900/30 text-red-400 hover:bg-red-900/50 transition-colors"
                 >
                   <Wallet className="w-4 h-4" />
                   <span className="font-medium">{formatAddress(account)}</span>
@@ -83,11 +83,11 @@ export default function Navbar() {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50"
+                    className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg border border-gray-700 py-1 z-50"
                   >
                     <Link
                       to="/dashboard"
-                      className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                      className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-300 hover:bg-gray-700"
                       onClick={() => setIsProfileOpen(false)}
                     >
                       <User className="w-4 h-4" />
@@ -95,7 +95,7 @@ export default function Navbar() {
                     </Link>
                     <Link
                       to="/profile"
-                      className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                      className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-300 hover:bg-gray-700"
                       onClick={() => setIsProfileOpen(false)}
                     >
                       <User className="w-4 h-4" />
@@ -103,19 +103,19 @@ export default function Navbar() {
                     </Link>
                     <Link
                       to="/settings"
-                      className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                      className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-300 hover:bg-gray-700"
                       onClick={() => setIsProfileOpen(false)}
                     >
                       <Settings className="w-4 h-4" />
                       <span>Settings</span>
                     </Link>
-                    <hr className="my-1" />
+                    <hr className="my-1 border-gray-700" />
                     <button
                       onClick={() => {
                         disconnectWallet()
                         setIsProfileOpen(false)
                       }}
-                      className="flex items-center space-x-2 px-4 py-2 text-sm text-error-600 hover:bg-error-50 w-full text-left"
+                      className="flex items-center space-x-2 px-4 py-2 text-sm text-red-400 hover:bg-red-900/30 w-full text-left"
                     >
                       <LogOut className="w-4 h-4" />
                       <span>Disconnect</span>
@@ -136,7 +136,7 @@ export default function Navbar() {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+              className="md:hidden p-2 rounded-lg text-gray-300 hover:text-gray-100 hover:bg-gray-700"
             >
               {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -149,7 +149,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-gray-200 py-4"
+            className="md:hidden border-t border-gray-700 py-4"
           >
             <div className="space-y-2">
               {navigation.map((item) => {
@@ -160,8 +160,8 @@ export default function Navbar() {
                     to={item.href}
                     className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                       isActive(item.href)
-                        ? 'text-avalanche-600 bg-avalanche-50'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                        ? 'text-red-400 bg-red-900/30'
+                        : 'text-gray-300 hover:text-gray-100 hover:bg-gray-700'
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >

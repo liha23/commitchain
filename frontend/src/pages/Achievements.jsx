@@ -14,10 +14,11 @@ import {
 } from 'lucide-react'
 import { useWeb3 } from '../contexts/Web3Context'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
+import { MOCK_ACHIEVEMENTS } from '../services/mockData'
 
 export default function Achievements() {
   const { isConnected } = useWeb3()
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [achievements, setAchievements] = useState([])
   const [filter, setFilter] = useState('all')
   const [searchTerm, setSearchTerm] = useState('')
@@ -29,58 +30,8 @@ export default function Achievements() {
   const loadAchievements = async () => {
     setIsLoading(true)
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      setAchievements([
-        {
-          id: 1,
-          name: 'LeetCode Master',
-          description: 'Completed 100 LeetCode problems',
-          rarity: 'legendary',
-          rarityLevel: 5,
-          image: '/achievements/leetcode-master.png',
-          earnedAt: '2024-01-15',
-          groupName: 'LeetCode Masters',
-          proofHash: 'QmProof123',
-          isEarned: true
-        },
-        {
-          id: 2,
-          name: 'Fitness Warrior',
-          description: 'Completed 30-day fitness challenge',
-          rarity: 'epic',
-          rarityLevel: 4,
-          image: '/achievements/fitness-warrior.png',
-          earnedAt: '2024-01-20',
-          groupName: 'Fitness Warriors',
-          proofHash: 'QmProof456',
-          isEarned: true
-        },
-        {
-          id: 3,
-          name: 'Study Legend',
-          description: 'Completed online course',
-          rarity: 'rare',
-          rarityLevel: 3,
-          image: '/achievements/study-legend.png',
-          earnedAt: '2024-01-25',
-          groupName: 'Study Squad',
-          proofHash: 'QmProof789',
-          isEarned: true
-        },
-        {
-          id: 4,
-          name: 'Crypto Trader',
-          description: 'Mastered cryptocurrency trading',
-          rarity: 'epic',
-          rarityLevel: 4,
-          image: '/achievements/crypto-trader.png',
-          earnedAt: null,
-          groupName: 'Crypto Traders',
-          proofHash: null,
-          isEarned: false
-        }
-      ])
+      await new Promise(resolve => setTimeout(resolve, 600))
+      setAchievements(MOCK_ACHIEVEMENTS)
     } catch (error) {
       console.error('Error loading achievements:', error)
     } finally {
@@ -90,12 +41,12 @@ export default function Achievements() {
 
   const getRarityColor = (rarity) => {
     switch (rarity) {
-      case 'common': return 'text-gray-600 bg-gray-100'
-      case 'uncommon': return 'text-green-600 bg-green-100'
-      case 'rare': return 'text-blue-600 bg-blue-100'
-      case 'epic': return 'text-purple-600 bg-purple-100'
-      case 'legendary': return 'text-yellow-600 bg-yellow-100'
-      default: return 'text-gray-600 bg-gray-100'
+      case 'common': return 'bg-gray-700 text-gray-200'
+      case 'uncommon': return 'bg-green-900/30 text-green-400'
+      case 'rare': return 'bg-blue-900/30 text-blue-400'
+      case 'epic': return 'bg-purple-900/30 text-purple-400'
+      case 'legendary': return 'bg-yellow-900/30 text-yellow-400'
+      default: return 'bg-gray-700 text-gray-200'
     }
   }
 
@@ -112,8 +63,7 @@ export default function Achievements() {
     const matchesSearch = achievement.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          achievement.description.toLowerCase().includes(searchTerm.toLowerCase())
     
-    const matchesFilter = filter === 'all' || 
-                         (filter === 'earned' && achievement.isEarned) ||
+    const matchesFilter = filter === 'all' ||
                          (filter === 'unearned' && !achievement.isEarned) ||
                          (filter === achievement.rarity)
     
