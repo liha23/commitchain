@@ -137,6 +137,38 @@ export function Web3Provider({ children }) {
     toast.success('Wallet disconnected')
   }
 
+  const switchNetwork = async (networkType = 'fuji') => {
+    try {
+      setIsLoading(true)
+      
+      // In a real implementation, this would switch the MetaMask network
+      // For demo purposes, we'll just update the network state
+      const networkConfig = AVALANCHE_NETWORKS[networkType]
+      
+      if (!networkConfig) {
+        toast.error('Invalid network type')
+        return false
+      }
+      
+      // Simulate network switch delay
+      await new Promise(resolve => setTimeout(resolve, 500))
+      
+      setNetwork({
+        chainId: parseInt(networkConfig.chainId, 16),
+        name: networkConfig.chainName,
+      })
+      
+      toast.success(`Switched to ${networkConfig.chainName}`)
+      return true
+    } catch (error) {
+      console.error('Error switching network:', error)
+      toast.error('Failed to switch network')
+      return false
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   const getContract = (contractName) => {
     return contracts[contractName] || null
   }
