@@ -82,7 +82,7 @@ export default function Sidebar() {
                 className={`group flex items-center space-x-3 px-3 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive(item.href)
                     ? 'bg-red-900/30 text-red-400 border border-red-800/50'
-                    : 'text-gray-300 hover:text-gray-100 hover:bg-gray-800'
+                    : 'text-gray-300 hover:text-white hover:bg-gray-800'
                 }`}
               >
                 <Icon className={`w-5 h-5 flex-shrink-0 ${
