@@ -11,14 +11,18 @@ import {
   Zap,
   Trophy,
   Users,
-  Target
+  Target,
+  PanelLeftClose,
+  PanelLeft
 } from 'lucide-react'
 import { useWeb3 } from '../../contexts/Web3Context'
+import { useSidebar } from '../../contexts/SidebarContext'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const { isConnected, account, connectWallet, disconnectWallet, formatAddress } = useWeb3()
+  const { isSidebarOpen, toggleSidebar } = useSidebar()
   const location = useLocation()
 
   const navigation = [
@@ -34,15 +38,32 @@ export default function Navbar() {
     <nav className="bg-gray-900 shadow-sm border-b border-gray-800 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 avalanche-gradient rounded-lg flex items-center justify-center">
-              <Target className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold text-gray-50">
-              Commit<span className="text-red-500">Chain</span>
-            </span>
-          </Link>
+          {/* Logo and Sidebar Toggle */}
+          <div className="flex items-center space-x-2">
+            {/* Sidebar Toggle Button - Only visible when connected */}
+            {isConnected && (
+              <button
+                onClick={toggleSidebar}
+                className="p-2 rounded-lg text-gray-200 hover:text-gray-50 hover:bg-gray-800 transition-colors"
+                aria-label="Toggle sidebar"
+              >
+                {isSidebarOpen ? (
+                  <PanelLeftClose className="w-5 h-5" />
+                ) : (
+                  <PanelLeft className="w-5 h-5" />
+                )}
+              </button>
+            )}
+            
+            <Link to="/" className="flex items-center space-x-2">
+              <div className="w-8 h-8 avalanche-gradient rounded-lg flex items-center justify-center">
+                <Target className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-xl font-bold text-gray-50">
+                Commit<span className="text-red-500">Chain</span>
+              </span>
+            </Link>
+          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
