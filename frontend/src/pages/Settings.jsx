@@ -84,8 +84,8 @@ export default function Settings() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Header */}
         <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Settings</h1>
-          <p className="text-sm sm:text-base text-gray-600">Manage your account settings and preferences</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Settings</h1>
+          <p className="text-sm sm:text-base text-gray-300">Manage your account settings and preferences</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 sm:gap-8">
@@ -100,10 +100,10 @@ export default function Settings() {
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap flex-shrink-0 ${
+                      className={`flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap flex-shrink-0 ${
                         activeTab === tab.id
-                          ? 'bg-avalanche-50 text-avalanche-700 border border-avalanche-200'
-                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                          ? 'bg-red-900/30 text-red-400 border border-red-800/50'
+                          : 'text-gray-300 hover:text-white hover:bg-gray-800'
                       }`}
                     >
                       <Icon className="w-4 h-4" />
@@ -123,8 +123,8 @@ export default function Settings() {
                       onClick={() => setActiveTab(tab.id)}
                       className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                         activeTab === tab.id
-                          ? 'bg-avalanche-50 text-avalanche-700 border border-avalanche-200'
-                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                          ? 'bg-red-900/30 text-red-400 border border-red-800/50'
+                          : 'text-gray-300 hover:text-white hover:bg-gray-800'
                       }`}
                     >
                       <Icon className="w-4 h-4" />
@@ -148,7 +148,7 @@ export default function Settings() {
               {/* Profile Settings */}
               {activeTab === 'profile' && (
                 <div className="space-y-6">
-                  <h2 className="text-xl font-semibold text-gray-900 flex items-center">
+                  <h2 className="text-xl font-semibold text-white flex items-center">
                     <User className="w-5 h-5 mr-2" />
                     Profile Settings
                   </h2>
@@ -189,9 +189,9 @@ export default function Settings() {
                         type="checkbox"
                         checked={settings.profile.publicProfile}
                         onChange={(e) => handleSettingChange('profile', 'publicProfile', e.target.checked)}
-                        className="rounded border-gray-300 text-avalanche-600 focus:ring-avalanche-500"
+                        className="rounded border-gray-700 bg-gray-800 text-red-600 focus:ring-red-500"
                       />
-                      <label className="text-sm text-gray-700">Make profile public</label>
+                      <label className="text-sm text-gray-200">Make profile public</label>
                     </div>
                   </div>
                 </div>
@@ -200,7 +200,7 @@ export default function Settings() {
               {/* Notification Settings */}
               {activeTab === 'notifications' && (
                 <div className="space-y-6">
-                  <h2 className="text-xl font-semibold text-gray-900 flex items-center">
+                  <h2 className="text-xl font-semibold text-white flex items-center">
                     <Bell className="w-5 h-5 mr-2" />
                     Notification Settings
                   </h2>
@@ -208,66 +208,66 @@ export default function Settings() {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="font-medium text-gray-900">Email Notifications</h3>
-                        <p className="text-sm text-gray-600">Receive notifications via email</p>
+                        <h3 className="font-medium text-white">Email Notifications</h3>
+                        <p className="text-sm text-gray-400">Receive notifications via email</p>
                       </div>
                       <input
                         type="checkbox"
                         checked={settings.notifications.emailNotifications}
                         onChange={(e) => handleSettingChange('notifications', 'emailNotifications', e.target.checked)}
-                        className="rounded border-gray-300 text-avalanche-600 focus:ring-avalanche-500"
+                        className="rounded border-gray-700 bg-gray-800 text-red-600 focus:ring-red-500"
                       />
                     </div>
 
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="font-medium text-gray-900">Push Notifications</h3>
-                        <p className="text-sm text-gray-600">Receive push notifications in browser</p>
+                        <h3 className="font-medium text-white">Push Notifications</h3>
+                        <p className="text-sm text-gray-400">Receive push notifications in browser</p>
                       </div>
                       <input
                         type="checkbox"
                         checked={settings.notifications.pushNotifications}
                         onChange={(e) => handleSettingChange('notifications', 'pushNotifications', e.target.checked)}
-                        className="rounded border-gray-300 text-avalanche-600 focus:ring-avalanche-500"
+                        className="rounded border-gray-700 bg-gray-800 text-red-600 focus:ring-red-500"
                       />
                     </div>
 
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="font-medium text-gray-900">Group Updates</h3>
-                        <p className="text-sm text-gray-600">Notifications about group activities</p>
+                        <h3 className="font-medium text-white">Group Updates</h3>
+                        <p className="text-sm text-gray-400">Notifications about group activities</p>
                       </div>
                       <input
                         type="checkbox"
                         checked={settings.notifications.groupUpdates}
                         onChange={(e) => handleSettingChange('notifications', 'groupUpdates', e.target.checked)}
-                        className="rounded border-gray-300 text-avalanche-600 focus:ring-avalanche-500"
+                        className="rounded border-gray-700 bg-gray-800 text-red-600 focus:ring-red-500"
                       />
                     </div>
 
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="font-medium text-gray-900">Achievement Alerts</h3>
-                        <p className="text-sm text-gray-600">Notifications when you earn achievements</p>
+                        <h3 className="font-medium text-white">Achievement Alerts</h3>
+                        <p className="text-sm text-gray-400">Notifications when you earn achievements</p>
                       </div>
                       <input
                         type="checkbox"
                         checked={settings.notifications.achievementAlerts}
                         onChange={(e) => handleSettingChange('notifications', 'achievementAlerts', e.target.checked)}
-                        className="rounded border-gray-300 text-avalanche-600 focus:ring-avalanche-500"
+                        className="rounded border-gray-700 bg-gray-800 text-red-600 focus:ring-red-500"
                       />
                     </div>
 
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="font-medium text-gray-900">Deadline Reminders</h3>
-                        <p className="text-sm text-gray-600">Reminders before group deadlines</p>
+                        <h3 className="font-medium text-white">Deadline Reminders</h3>
+                        <p className="text-sm text-gray-400">Reminders before group deadlines</p>
                       </div>
                       <input
                         type="checkbox"
                         checked={settings.notifications.deadlineReminders}
                         onChange={(e) => handleSettingChange('notifications', 'deadlineReminders', e.target.checked)}
-                        className="rounded border-gray-300 text-avalanche-600 focus:ring-avalanche-500"
+                        className="rounded border-gray-700 bg-gray-800 text-red-600 focus:ring-red-500"
                       />
                     </div>
                   </div>
@@ -400,27 +400,27 @@ export default function Settings() {
             </motion.div>
 
             {/* Danger Zone */}
-            <div className="card mt-8 border-error-200">
-              <h2 className="text-xl font-semibold text-error-700 mb-4">Danger Zone</h2>
+            <div className="card mt-6 sm:mt-8 border-error-800">
+              <h2 className="text-xl font-semibold text-error-400 mb-4">Danger Zone</h2>
               
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-error-50 rounded-lg">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-error-900/20 rounded-lg border border-error-800/50">
                   <div>
-                    <h3 className="font-medium text-error-700">Export Data</h3>
-                    <p className="text-sm text-error-600">Download all your data</p>
+                    <h3 className="font-medium text-error-400">Export Data</h3>
+                    <p className="text-sm text-error-300/80">Download all your data</p>
                   </div>
-                  <button onClick={handleExportData} className="btn btn-outline btn-sm">
+                  <button onClick={handleExportData} className="btn btn-outline btn-sm w-full sm:w-auto justify-center">
                     <Download className="w-4 h-4 mr-2" />
                     Export
                   </button>
                 </div>
 
-                <div className="flex items-center justify-between p-4 bg-error-50 rounded-lg">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-error-900/20 rounded-lg border border-error-800/50">
                   <div>
-                    <h3 className="font-medium text-error-700">Delete Account</h3>
-                    <p className="text-sm text-error-600">Permanently delete your account and all data</p>
+                    <h3 className="font-medium text-error-400">Delete Account</h3>
+                    <p className="text-sm text-error-300/80">Permanently delete your account and all data</p>
                   </div>
-                  <button onClick={handleDeleteAccount} className="btn btn-error btn-sm">
+                  <button onClick={handleDeleteAccount} className="btn btn-error btn-sm w-full sm:w-auto justify-center">
                     <Trash2 className="w-4 h-4 mr-2" />
                     Delete
                   </button>
